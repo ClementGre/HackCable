@@ -1,5 +1,6 @@
 # HackCable
 Arduino and ESP32 simulator (Wire components + emulate code)
+Test the library here [https://clementgre.github.io/HackCable/](https://clementgre.github.io/HackCable/)
 
 ## Goals
 
@@ -14,25 +15,24 @@ Arduino and ESP32 simulator (Wire components + emulate code)
 
 HackCable is coded in TypeScript, using Webpack + Babel.
 
-The code is using a unique npm configuration, but there is two webpack configuration files, and two main folders:
+The code is using only one npm configuration, but there is two webpack configuration files, and two main folders:
 - ``src`` is the code of the library itself
 - ``web`` is the website that allow to test the library, and to make an example of use. The ``:web`` tasks allow to use this part of the code, associated with the webpack config : ``webpack.config.web.js``.
 
 # Tasks
 
-TypeScript Types checking and generating
+TypeScript Type checking and generating
 
 ``type-check``
 ``type-check:watch``
 ``build:types``
 
-Tasks about the library itself
+Build the library itself
 
-``build:js``
-``build``
+``build:src``
 
-Tasks about the web app (example + library tester)
+Build or start the live server of the web page that use the library
 
-``build:web:js``
 ``build:web``
+
 ``serve:web``

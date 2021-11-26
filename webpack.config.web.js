@@ -30,6 +30,23 @@ module.exports = {
                     loader: 'babel-loader'
                 }
             },
+            {
+                test: /\.html$/i,
+                loader: "html-loader",
+            },
+            {
+                test: /\.styl$/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    {
+                        loader: "stylus-loader",
+                        options: {
+                            webpackImporter: false,
+                        },
+                    },
+                ],
+            },
             { // CSS auto injection
                 test: /\.css$/i,
                 use: ["style-loader", "css-loader"]

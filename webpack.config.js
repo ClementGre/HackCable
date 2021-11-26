@@ -6,7 +6,7 @@ module.exports = {
 
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist/app'),
+        path: path.resolve(__dirname, 'dist/src'),
     },
     resolve: {
         extensions: ['.ts', '.js', '.json']
@@ -18,7 +18,28 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader'
-                }
+                },
+            },
+            {
+                test: /\.html$/i,
+                loader: "html-loader",
+            },
+            {
+                test: /\.styl$/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    {
+                        loader: "stylus-loader",
+                        options: {
+                            webpackImporter: false,
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"]
             }
         ]
     },
