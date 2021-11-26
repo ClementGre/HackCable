@@ -3,11 +3,13 @@ import * as avr8js from 'avr8js';
 import '@wokwi/elements';
 import "@wokwi/elements";
 import {LEDElement} from "@wokwi/elements";
+import {Catalog} from "./catalog";
 
 
 export class HackCable {
 
-    private led: (LEDElement & Element) | null | undefined;
+    private editor: Element | null | undefined;
+    private led: LEDElement | undefined;
 
     mount(mountDiv: HTMLElement): void {
         console.log("Mounting HackCable...")
@@ -15,7 +17,20 @@ export class HackCable {
         mountDiv.innerHTML = require('./ui.html').default
         mountDiv.classList.add("hackCable-root");
 
-        this.led = document.querySelector<LEDElement & Element>('wokwi-led');
+        this.editor = document.querySelector('.hackCable-editor')
+
+        const led = document.createElement('wokwi-led');
+        if(led instanceof LEDElement){
+            this.led = led;
+            led.color = "#002fd9"
+            led.lightColor = "#3a66f6"
+            led.label = "13"
+            this.editor?.appendChild(this.led);
+        }
+
+        new Catalog();
+
+
     }
 
     runCode(program: Program): void{

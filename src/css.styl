@@ -1,18 +1,47 @@
+
 .hackCable-root
   height 100%
   width 100%
-  overflow auto
   display flex
   flex-wrap nowrap
 
-.hackCable-sideBar
-  height 100%
-  width 200px;
-  background-color aquamarine
-  .hackCable-catalog
-    background-color white
+  p, h1, h2, h3, h4{
+    font-family Rubik
+  }
+  h3
+    color #c9c9c9
+    font-weight 400
+    font-size .9em
+    text-align center
+    word-wrap break-word
+
+  .hackCable-sideBar
+    height 100%
+    width 200px;
+    background-color #424B5A
+    display: flex;
+
+    .hackCable-catalog
+      overflow scroll
+      overflow-x hidden
+      width 100%
+      padding 5px
+      scrollbar-width thin
+
+      .hackCable-catalog-element
+        text-align center
+        display block
+        overflow hidden
+        border-radius 5px
+        background: rgba(1, 1, 1, 0.3);
+        padding 5px
+        margin 5px 0
+        h3
+          margin 0 0 10px 0
 
 
-.hackCable-editor
-  background-color black
-  width 100%
+  .hackCable-editor
+    background-color black
+    width 100%
+    overflow auto
+    scrollbar-width thin
