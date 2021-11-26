@@ -2,6 +2,7 @@ import "./css.styl";
 import '@wokwi/elements';
 import "@wokwi/elements";
 export declare class HackCable {
+    private editor;
     private led;
     mount(mountDiv: HTMLElement): void;
     runCode(program: Program): void;
