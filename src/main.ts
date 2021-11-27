@@ -1,10 +1,9 @@
 import "./css.styl"
 import * as avr8js from 'avr8js';
 import '@wokwi/elements';
-import "@wokwi/elements";
 import {LEDElement} from "@wokwi/elements";
 import {Catalog} from "./catalog";
-
+import {AVRRunner} from "./execute";
 
 export class HackCable {
 
@@ -33,40 +32,14 @@ export class HackCable {
 
     }
 
-    runCode(program: Program): void{
+    runCode(runner: AVRRunner): void{
 
-        const cpu = new avr8js.CPU(program.getProgram());
-        new avr8js.AVRTimer(cpu, avr8js.timer0Config);
-        const portB = new avr8js.AVRIOPort(cpu, avr8js.portBConfig);
-        portB.addListener(() => {
-            if(this.led != undefined) this.led.value = portB.pinState(5) === avr8js.PinState.High;
+        runner.execute(() => {});
+
+        runner.portD.addListener(() => {
+            console.log("listener called: ", runner.portD.pinState(1))
+            if(this.led != undefined) this.led.value = runner.portD.pinState(1) === avr8js.PinState.High;
         });
 
-        function runCode() {
-            for(let i = 0; i < 50000; i++){
-                avr8js.avrInstruction(cpu);
-                cpu.tick();
-            }
-            setTimeout(runCode, 0);
-        }
-
-        runCode();
-    }
-}
-
-export class Program {
-
-    private readonly program
-
-    constructor(blink: string){
-        this.program = new Uint16Array(16384);
-
-        blink.split(' ').forEach((value, index) => {
-            this.program[index] = parseInt(value, 16);
-        });
-    }
-
-    getProgram(): Uint16Array {
-        return this.program;
     }
 }

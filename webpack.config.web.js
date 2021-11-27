@@ -2,9 +2,10 @@ const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack')
 
 module.exports = {
-    entry: path.resolve(__dirname, 'web') + "/index.ts",
+    entry: ["@babel/polyfill", path.resolve(__dirname, 'web') + "/index.ts"],
 
     devServer: {
         client: {
@@ -19,7 +20,10 @@ module.exports = {
         path: path.resolve(__dirname, 'dist/web'),
     },
     resolve: {
-        extensions: ['.ts', '.js', '.json', '.css']
+        extensions: ['.ts', '.js', '.json', '.css'],
+        fallback: {
+            buffer: require.resolve('buffer/'),
+        },
     },
     module: {
         rules: [
@@ -66,7 +70,9 @@ module.exports = {
                     to: 'assets'
                 }
             ]
+        }),
+        new webpack.ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
         })
-    ]
-
+    ],
 };

@@ -1,8 +1,9 @@
 const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const webpack = require('webpack')
 
 module.exports = {
-    entry: path.resolve(__dirname, 'src') + "/main.ts",
+    entry: ["@babel/polyfill", path.resolve(__dirname, 'src') + "/main.ts"],
 
     output: {
         filename: 'bundle.js',
@@ -45,6 +46,9 @@ module.exports = {
     },
     plugins: [
         new ForkTsCheckerWebpackPlugin(),
+        new webpack.ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
+        })
     ]
 
 };
