@@ -3,23 +3,28 @@ export type IMicroTaskCallback = () => void;
 export class MicroTaskScheduler {
     private readonly channel = new MessageChannel();
     private executionQueue: Array<IMicroTaskCallback> = [];
-    private stopped = true;
+    private _stopped = true;
 
     start() {
-        if (this.stopped) {
-            this.stopped = false;
+        if (this._stopped) {
+            this._stopped = false;
             this.channel.port2.onmessage = this.handleMessage;
         }
     }
 
     stop() {
-        this.stopped = true;
+        this._stopped = true;
         this.executionQueue.splice(0, this.executionQueue.length);
         this.channel.port2.onmessage = null;
     }
 
+    get stopped(){
+        return this._stopped;
+    }
+
+
     postTask(fn: IMicroTaskCallback) {
-        if (!this.stopped) {
+        if (!this._stopped) {
             this.executionQueue.push(fn);
             this.channel.port1.postMessage(null);
         }

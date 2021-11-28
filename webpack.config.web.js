@@ -6,7 +6,9 @@ const webpack = require('webpack')
 
 module.exports = {
     entry: ["@babel/polyfill", path.resolve(__dirname, 'web') + "/index.ts"],
-
+    performance: {
+        hints: false
+    },
     devServer: {
         client: {
             overlay: true,
@@ -18,6 +20,7 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist/web'),
+        clean: true
     },
     resolve: {
         extensions: ['.ts', '.js', '.json', '.css'],

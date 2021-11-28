@@ -24,7 +24,9 @@ The code is using only one npm configuration, but there is two webpack configura
 TypeScript Type checking and generating
 
 ``type-check``
+
 ``type-check:watch``
+
 ``build:types``
 
 Build the library itself

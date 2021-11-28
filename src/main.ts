@@ -3,23 +3,30 @@ import * as avr8js from 'avr8js';
 import '@wokwi/elements';
 import {LEDElement} from "@wokwi/elements";
 import {Catalog} from "./panels/catalog";
-import {AVRRunner} from "./emulator/avr-runner";
+import {EmulatorManager} from "./emulator/emulator-manager";
 
 export {AVRRunner} from "./emulator/avr-runner";
-export {compileToHex, CompileResult} from "./emulator/compiler";
+export {EmulatorManager} from './emulator/emulator-manager';
+import * as compiler from './emulator/compiler';
+export type CompileResult = compiler.CompileResult;
 
 export class HackCable {
 
     private editor: Element | null | undefined;
-    private led: LEDElement | undefined;
+    private readonly led: LEDElement | undefined;
 
-    mount(mountDiv: HTMLElement): void {
+    private readonly _emulatorManager: EmulatorManager;
+    private readonly _catalog: Catalog;
+
+    constructor(mountDiv: HTMLElement){
         console.log("Mounting HackCable...")
 
         mountDiv.innerHTML = require('./ui/ui.html').default
         mountDiv.classList.add("hackCable-root");
 
         this.editor = document.querySelector('.hackCable-editor')
+        this._catalog = new Catalog()
+        this._emulatorManager = new EmulatorManager(this);
 
         const led = document.createElement('wokwi-led');
         if(led instanceof LEDElement){
@@ -30,19 +37,16 @@ export class HackCable {
             this.editor?.appendChild(this.led);
         }
 
-        new Catalog();
-
-
     }
 
-    runCode(runner: AVRRunner): void{
+    public get emulatorManager(){
+        return this._emulatorManager;
+    }
+    public get catalog(){
+        return this._catalog;
+    }
 
-        runner.execute(() => {});
-
-        runner.portD.addListener(() => {
-            console.log("listener called: ", runner.portD.pinState(1))
-            if(this.led != undefined) this.led.value = runner.portD.pinState(1) === avr8js.PinState.High;
-        });
-
+    public portDUpdate(portD: avr8js.AVRIOPort) {
+        if(this.led != undefined) this.led.value = portD.pinState(1) === avr8js.PinState.High;
     }
 }

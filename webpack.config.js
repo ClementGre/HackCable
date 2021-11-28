@@ -1,16 +1,18 @@
 const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const webpack = require('webpack')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     entry: ["@babel/polyfill", path.resolve(__dirname, 'src') + "/main.ts"],
-
+    performance: {
+        hints: false
+    },
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist/src'),
         library: "hackcable",
-        libraryTarget: "umd" // exposes and know when to use module.exports or exports.
+        libraryTarget: "umd", // exposes and know when to use module.exports or exports.
+        clean: true,
     },
     resolve: {
         extensions: ['.ts', '.js', '.json']
@@ -51,11 +53,6 @@ module.exports = {
         new ForkTsCheckerWebpackPlugin(),
         new webpack.ProvidePlugin({
             Buffer: ['buffer', 'Buffer'],
-        }),
-        new CleanWebpackPlugin({
-            root: __dirname,
-            verbose: true,
-            dry: false,
         })
     ]
 

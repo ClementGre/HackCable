@@ -43,7 +43,7 @@ export class AVRRunner {
 
     execute(callback: (cpu: CPU) => void) {
         const cyclesToRun = this.cpu.cycles + this.workUnitCycles;
-        while (this.cpu.cycles < cyclesToRun) {
+        while(this.cpu.cycles < cyclesToRun) {
             avrInstruction(this.cpu);
             this.cpu.tick();
         }
@@ -52,7 +52,17 @@ export class AVRRunner {
         this.taskScheduler.postTask(() => this.execute(callback));
     }
 
-    stop() {
+    set pause(pause: boolean){
+        if(pause && !this.pause) this.taskScheduler.stop();
+        else if(!pause && this.pause){
+            this.taskScheduler.start();
+            this.execute(() => {})
+        }
+    }
+    get pause(){
+        return this.taskScheduler.stopped;
+    }
+    stop(){
         this.taskScheduler.stop();
     }
 }
