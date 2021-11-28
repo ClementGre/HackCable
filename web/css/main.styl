@@ -1,3 +1,7 @@
+p, h1, h2, h3, h4, select, label
+    font-family Rubik
+    color white
+
 html
     min-height 100vh
 
@@ -31,6 +35,25 @@ main
         min-width 200px
         height 100%
         border-right 1px solid black
+        padding 10px
+        flex-direction column
+        overflow scroll
+
+        .buttonBar
+            display flex
+            flex-direction row
+            margin-bottom 10px
+            gap 10px
+            button
+                border none
+                border-radius 5px
+                padding 3px 7px
+        textarea
+            border none
+            border-radius 5px
+            width 100%
+            resize vertical
+            min-height 50%
 
 
 footer

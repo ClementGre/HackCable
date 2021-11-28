@@ -1,6 +1,7 @@
 import "./css/main.styl"
 import {HackCable} from "../src/main";
 import {AVRRunner} from "../src/execute";
+import {compileToHex} from "../src/compile";
 
 console.log("Running HackCable web interface")
 
@@ -8,6 +9,57 @@ let hackCable = new HackCable();
 
 const mountingDiv = document.getElementById('hackCable');
 if(mountingDiv) hackCable.mount(mountingDiv)
+
+
+const compileButton = document.getElementById('compile');
+const executeButton = document.getElementById('execute');
+const stopButton = document.getElementById('stop');
+const codeInput = document.getElementById('code-editor');
+const hexInput = document.getElementById('code-compiled');
+
+
+
+if(compileButton && executeButton && stopButton && codeInput instanceof HTMLTextAreaElement && hexInput instanceof HTMLTextAreaElement){
+
+    const code = localStorage.getItem('hackCable-webExample-inputCode');
+    if(code) codeInput.value = code;
+    const hex = localStorage.getItem('hackCable-webExample-inputHex');
+    if(hex) hexInput.value = hex;
+
+    compileButton.addEventListener("click", () =>  compile());
+    executeButton.addEventListener("click", () => execute());
+    stopButton.addEventListener("click", () => stop());
+
+    let runner: AVRRunner;
+
+    function compile(){
+        if(codeInput instanceof HTMLTextAreaElement && hexInput instanceof HTMLTextAreaElement){
+
+            console.log("Compiling...")
+            localStorage.setItem('hackCable-webExample-inputCode', codeInput.value);
+            compileToHex(codeInput.value).then((data) => {
+                if(data){
+                    console.log("done")
+                    hexInput.value = data.hex
+                    localStorage.setItem('hackCable-webExample-inputHex', data.hex);
+                }
+            })
+        }
+
+    }
+    function execute(){
+        stop()
+        if(hexInput instanceof HTMLTextAreaElement){
+            localStorage.setItem('hackCable-webExample-inputHex', hexInput.value);
+            runner = new AVRRunner(hexInput.value.replace(/\n\n/g, "\n"));
+            hackCable.runCode(runner);
+        }
+    }
+    function stop(){
+        if(runner) runner.stop();
+    }
+}
+
 
 
 /*const code = `void setup() {
@@ -26,134 +78,6 @@ void loop() {
   }
 
 }`*/
-
-const hex = `:100000000C945C000C946E000C946E000C946E00CA
-
-:100010000C946E000C946E000C946E000C946E00A8
-
-:100020000C946E000C946E000C946E000C946E0098
-
-:100030000C946E000C946E000C946E000C946E0088
-
-:100040000C9413010C946E000C946E000C946E00D2
-
-:100050000C946E000C946E000C946E000C946E0068
-
-:100060000C946E000C946E00000000002400270029
-
-:100070002A0000000000250028002B0004040404CE
-
-:100080000404040402020202020203030303030342
-
-:10009000010204081020408001020408102001021F
-
-:1000A00004081020000000080002010000030407FB
-
-:1000B000000000000000000011241FBECFEFD8E0B8
-
-:1000C000DEBFCDBF21E0A0E0B1E001C01D92A930AC
-
-:1000D000B207E1F70E945D010C94C6010C94000088
-
-:1000E000E5EAF0E02491E1E9F0E09491EDE7F0E059
-
-:1000F000E491EE23C9F0222339F0233001F1A8F472
-
-:10010000213019F1223029F1F0E0EE0FFF1FEE58F7
-
-:10011000FF4FA591B4912FB7F894EC91811126C0AF
-
-:1001200090959E239C932FBF08952730A9F02830E7
-
-:10013000C9F0243049F7209180002F7D03C0209121
-
-:1001400080002F7720938000DFCF24B52F7724BD48
-
-:10015000DBCF24B52F7DFBCF2091B0002F772093EC
-
-:10016000B000D2CF2091B0002F7DF9CF9E2BDACFF7
-
-:100170003FB7F8948091050190910601A091070185
-
-:10018000B091080126B5A89B05C02F3F19F0019634
-
-:10019000A11DB11D3FBFBA2FA92F982F8827BC01E1
-
-:1001A000CD01620F711D811D911D42E0660F771F09
-
-:1001B000881F991F4A95D1F708958F929F92AF9209
-
-:1001C000BF92CF92DF92EF92FF920E94B8004B0154
-
-:1001D0005C0188EEC82E83E0D82EE12CF12C0E9421
-
-:1001E000B800681979098A099B09683E734081053E
-
-:1001F0009105A8F321E0C21AD108E108F10888EEC0
-
-:10020000880E83E0981EA11CB11CC114D104E10426
-
-:10021000F10429F7FF90EF90DF90CF90BF90AF905F
-
-:100220009F908F9008951F920F920FB60F921124F6
-
-:100230002F933F938F939F93AF93BF93809101012F
-
-:1002400090910201A0910301B0910401309100014D
-
-:1002500023E0230F2D3758F50196A11DB11D2093E2
-
-:1002600000018093010190930201A0930301B093D8
-
-:1002700004018091050190910601A0910701B091C0
-
-:1002800008010196A11DB11D8093050190930601FF
-
-:10029000A0930701B0930801BF91AF919F918F91F7
-
-:1002A0003F912F910F900FBE0F901F90189526E849
-
-:1002B000230F0296A11DB11DD2CF789484B5826020
-
-:1002C00084BD84B5816084BD85B5826085BD85B5FA
-
-:1002D000816085BD80916E00816080936E00109278
-
-:1002E00081008091810082608093810080918100F3
-
-:1002F0008160809381008091800081608093800084
-
-:100300008091B10084608093B1008091B0008160E1
-
-:100310008093B00080917A00846080937A0080910D
-
-:100320007A00826080937A0080917A008160809365
-
-:100330007A0080917A00806880937A001092C100E0
-
-:10034000E1E9F0E02491EDE7F0E08491882399F071
-
-:1003500090E0880F991FFC01E859FF4FA591B491D7
-
-:10036000FC01EE58FF4F859194918FB7F894EC9172
-
-:10037000E22BEC938FBF81E00E9470000E94DD00B1
-
-:1003800080E00E9470000E94DD00F5CFF894FFCF5E
-
-:00000001FF`.replace(/\n\n/g, "\n")
-
-
-const runner = new AVRRunner(hex);
-hackCable.runCode(runner);
-
-/*buildHex(code).then((data) => {
-    if(data){
-        console.log(data.hex)
-        const runner = new AVRRunner(data.hex);
-        hackCable.runCode(runner);
-    }
-})*/
 
 
 

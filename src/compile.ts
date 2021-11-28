@@ -1,10 +1,10 @@
-export interface IHexiResult {
+export interface CompileResult {
     stdout: string;
     stderr: string;
     hex: string;
 }
 
-export async function buildHex(source: string) {
+export async function compileToHex(source: string) {
     const resp = await fetch('https://hexi.wokwi.com/build', {
         method: 'POST',
         mode: 'cors',
@@ -14,5 +14,5 @@ export async function buildHex(source: string) {
         },
         body: JSON.stringify({ sketch: source })
     });
-    return (await resp.json()) as IHexiResult;
+    return (await resp.json()) as CompileResult;
 }
