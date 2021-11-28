@@ -8,7 +8,7 @@ import {
     portCConfig,
     portDConfig, timer1Config, timer2Config, AVRUSART, usart0Config
 } from "avr8js";
-import {MicroTaskScheduler} from "./task-scheduler";
+import {MicroTaskScheduler} from "./micro-task-scheduler";
 
 // ATmega328p params
 const FLASH = 0x8000;

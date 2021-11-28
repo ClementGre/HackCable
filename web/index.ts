@@ -1,7 +1,7 @@
 import "./css/main.styl"
 import {HackCable} from "../src/main";
-import {AVRRunner} from "../src/execute";
-import {compileToHex} from "../src/compile";
+import {AVRRunner} from "../src/emulator/avr-runner";
+import {compileToHex} from "../src/emulator/compiler";
 
 console.log("Running HackCable web interface")
 

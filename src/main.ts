@@ -1,9 +1,12 @@
-import "./css.styl"
+import "./ui/css.styl"
 import * as avr8js from 'avr8js';
 import '@wokwi/elements';
 import {LEDElement} from "@wokwi/elements";
-import {Catalog} from "./catalog";
-import {AVRRunner} from "./execute";
+import {Catalog} from "./panels/catalog";
+import {AVRRunner} from "./emulator/avr-runner";
+
+export {AVRRunner} from "./emulator/avr-runner";
+export {compileToHex, CompileResult} from "./emulator/compiler";
 
 export class HackCable {
 
@@ -13,7 +16,7 @@ export class HackCable {
     mount(mountDiv: HTMLElement): void {
         console.log("Mounting HackCable...")
 
-        mountDiv.innerHTML = require('./ui.html').default
+        mountDiv.innerHTML = require('./ui/ui.html').default
         mountDiv.classList.add("hackCable-root");
 
         this.editor = document.querySelector('.hackCable-editor')
