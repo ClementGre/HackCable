@@ -37,11 +37,13 @@
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-typescript": "7.16.0",
+    "@types/jquery": "^3.5.9",
     "@types/react": "^17.0.37",
     "babel-loader": "^8.2.3",
     "buffer": "^6.0.3",
     "copy-webpack-plugin": "^10.0.0",
     "css-loader": "^6.5.1",
+    "draw2d-types": "^1.0.3",
     "fork-ts-checker-webpack-plugin": "6.4.0",
     "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
@@ -56,6 +58,20 @@
   "dependencies": {
     "@wokwi/elements": "^0.54.1",
     "avr8js": "^0.18.6",
-    "intel-hex": "^0.1.2"
+    "canvg": "^3.0.9",
+    "class": "^0.1.4",
+    "draw2d": "^1.0.38",
+    "intel-hex": "^0.1.2",
+    "jquery": "^3.6.0",
+    "jquery-autosize": "^1.18.18",
+    "jquery-contextmenu": "^2.9.2",
+    "jquery-ui": "^1.13.0",
+    "jquery-ui-touch-punch": "^0.2.3",
+    "json2": "^0.4.0",
+    "pathfinding": "^0.4.18",
+    "raphael": "^2.3.0",
+    "rgbcolor": "^1.0.1",
+    "shifty": "^2.16.0",
+    "webpack-jquery-ui": "^2.0.1"
   }
 }

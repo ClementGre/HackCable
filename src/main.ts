@@ -8,34 +8,33 @@ import {EmulatorManager} from "./emulator/emulator-manager";
 export {AVRRunner} from "./emulator/avr-runner";
 export {EmulatorManager} from './emulator/emulator-manager';
 import * as compiler from './emulator/compiler';
+import {Editor} from "./editor/editor";
 export type CompileResult = compiler.CompileResult;
 
-export class HackCable {
+// Draw2D deps
+require('webpack-jquery-ui');
+require('webpack-jquery-ui/draggable');
 
-    private editor: Element | null | undefined;
+
+export class HackCable {
     private readonly led: LEDElement | undefined;
 
     private readonly _emulatorManager: EmulatorManager;
     private readonly _catalog: Catalog;
+    private readonly _editor: Editor;
 
     constructor(mountDiv: HTMLElement){
         console.log("Mounting HackCable...")
 
+        // @ts-ignore
+        $('header').draggable();
+
         mountDiv.innerHTML = require('./ui/ui.html').default
         mountDiv.classList.add("hackCable-root");
 
-        this.editor = document.querySelector('.hackCable-editor')
         this._catalog = new Catalog()
         this._emulatorManager = new EmulatorManager(this);
-
-        const led = document.createElement('wokwi-led');
-        if(led instanceof LEDElement){
-            this.led = led;
-            led.color = "#002fd9"
-            led.lightColor = "#3a66f6"
-            led.label = "13"
-            this.editor?.appendChild(this.led);
-        }
+        this._editor = new Editor();
 
     }
 
@@ -44,6 +43,9 @@ export class HackCable {
     }
     public get catalog(){
         return this._catalog;
+    }
+    public get editor(){
+        return this._editor;
     }
 
     public portDUpdate(portD: avr8js.AVRIOPort) {

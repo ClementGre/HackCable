@@ -26,7 +26,7 @@ module.exports = {
         extensions: ['.ts', '.js', '.json', '.css'],
         fallback: {
             buffer: require.resolve('buffer/'),
-        },
+        }
     },
     module: {
         rules: [
@@ -76,6 +76,9 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             Buffer: ['buffer', 'Buffer'],
+            "$": "jquery",
+            "jQuery": "jquery",
+            "window.jQuery": "jquery"
         })
     ],
 };

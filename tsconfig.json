@@ -12,14 +12,17 @@
     "target": "es2015",
     "module": "es2015",
     "strict": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "typeRoots": ["./node_modules/@types", "./src/types", "./node_modules/draw2d-types"]
   },
   "include": [
     "src/**/*",
-    "web/**/*"
+    "web/**/*",
+    "node_modules/draw2d-types/draw2d.d.ts"
   ],
   "exclude": [
     "node_modules",
     "dist"
-  ]
+  ],
+
 }
