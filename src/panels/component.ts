@@ -32,7 +32,7 @@ import {
 
 export declare type WokwiComponent = SevenSegmentElement | ArduinoUnoElement | LCD1602Element | LEDElement | NeoPixelElement | PushbuttonElement | ResistorElement | MembraneKeypadElement | PotentiometerElement | NeopixelMatrixElement | SSD1306Element | BuzzerElement | RotaryDialerElement | ServoElement | Dht22Element | ArduinoMegaElement | ArduinoNanoElement | Ds1307Element | LEDRingElement | SlideSwitchElement | HCSR04Element | LCD2004Element | AnalogJoystickElement | SlidePotentiometerElement | IRReceiverElement | IRRemoteElement | PIRMotionSensorElement | NTCTemperatureSensorElement | HeartBeatSensorElement | TiltSwitchElement | FlameSensorElement | GasSensorElement | FranzininhoElement | NanoRP2040ConnectElement | SmallSoundSensorElement | BigSoundSensorElement | MPU6050Element | ESP32DevkitV1Element | KY040Element | PhotoresistorSensorElement | RGBLedElement | ILI9341Element | LedBarGraphElement | MicrosdCardElement | DipSwitch8Element
 
-export declare type WokwiClass = typeof RotaryDialerElement | typeof Dht22Element | typeof IRRemoteElement;
+export declare type WokwiClass = typeof Dht22Element;
 
 export const wokwiComponentClasses = [SevenSegmentElement, ArduinoUnoElement, LCD1602Element, LEDElement, NeoPixelElement, PushbuttonElement, ResistorElement, MembraneKeypadElement, PotentiometerElement, NeopixelMatrixElement, SSD1306Element, BuzzerElement, RotaryDialerElement, ServoElement, Dht22Element, ArduinoMegaElement, ArduinoNanoElement, Ds1307Element, LEDRingElement, SlideSwitchElement, HCSR04Element, LCD2004Element, AnalogJoystickElement, SlidePotentiometerElement, IRReceiverElement, IRRemoteElement,  PIRMotionSensorElement, NTCTemperatureSensorElement, HeartBeatSensorElement, TiltSwitchElement, FlameSensorElement, GasSensorElement, FranzininhoElement, NanoRP2040ConnectElement, SmallSoundSensorElement, BigSoundSensorElement, MPU6050Element, ESP32DevkitV1Element, KY040Element, PhotoresistorSensorElement, RGBLedElement, ILI9341Element, LedBarGraphElement, MicrosdCardElement, DipSwitch8Element]
 
@@ -176,9 +176,7 @@ export const wokwiComponentsInfo: WokwiComponentsInfo = [
         type: ComponentType.OTHER
     }]
 
-export function initComponent(cInfo: WokwiComponentInfo){
-    return new Component(cInfo.clasz, cInfo.name, cInfo.description, cInfo.type);
-}
+
 
 export class Component {
 
@@ -214,4 +212,7 @@ export class ComponentElement {
 export const components: Component[] = []
 for(let wokwiComponentInfo of wokwiComponentsInfo){
     components.push(initComponent(wokwiComponentInfo));
+}
+export function initComponent(cInfo: WokwiComponentInfo){
+    return new Component(cInfo.clasz, cInfo.name, cInfo.description, cInfo.type);
 }
