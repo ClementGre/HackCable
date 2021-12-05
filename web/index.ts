@@ -11,7 +11,6 @@ if(!mountingDiv) throw new DOMException("Mounting div not found")
 let hackCable = new HackCable(mountingDiv);
 
 
-
 const compileButton = document.getElementById('compile');
 const executeButton = document.getElementById('execute');
 const stopButton = document.getElementById('stop');

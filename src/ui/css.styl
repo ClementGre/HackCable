@@ -58,17 +58,35 @@
           margin 0 0 10px 0
 
   .hackCable-editor
-    background-color #424B5A
+    background-color white
     width 100%
-    overflow auto
+    overflow scroll
     scrollbar-width thin
     position relative
 
     #hackCable-canvas
-      width 100%
-      height 100%
+      width 1500px
+      height 1000px
       position relative
-      overflow auto
-      scrollbar-width thin
-      *
-        overflow visible
+
+      .hackCable-canvas-overlay-container
+        height 100%
+        width 100%
+        position absolute
+        overflow hidden
+        transform-origin: left top;
+
+        background-color rgba(0, 0, 0, 0)
+        background-position 0 0, 0 0;
+        background-repeat repeat, repeat
+        background-attachment scroll, scroll
+        background-image linear-gradient(to right, rgb(240, 240, 240) 1px, transparent 1px), linear-gradient(rgb(240, 240, 240) 1px, rgb(255, 255, 255) 1px)
+        background-clip border-box, border-box
+        background-size 20px 20px;
+
+        *
+          position absolute
+          transform-origin left top
+
+
+
