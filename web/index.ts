@@ -59,7 +59,20 @@ if(compileButton && executeButton && stopButton && pauseButton && codeInput inst
     }
 }
 
-
+const save = document.getElementById('save');
+const restore = document.getElementById('restore');
+if(save && restore){
+    save.addEventListener("click", () => {
+        const data = hackCable.editor.getEditorSaveData();
+        console.log('Saving data:', data)
+        localStorage.setItem('savedEditor', JSON.stringify(data));
+    });
+    restore.addEventListener("click", () => {
+        const data = JSON.parse(<string>localStorage.getItem('savedEditor'));
+        console.log('Loading data:', data)
+        hackCable.editor.loadEditorSaveData(data)
+    });
+}
 
 /*const code = `void setup() {
   // put your setup code here, to run once:

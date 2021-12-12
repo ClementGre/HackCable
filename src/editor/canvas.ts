@@ -2,9 +2,11 @@ import draw2d from "draw2d";
 import {connectionsPolicy} from "./connections-policies";
 import {CoordinatePortLocator} from "./coordinate-port-locator";
 import {ComponentFigure} from "./component-figure";
-import {Component, ComponentType} from "../panels/component";
+import {wokwiComponentByClass} from "../panels/component";
 import {ArduinoUnoElement, Dht22Element, LEDElement, NeoPixelElement} from "@wokwi/elements";
 import {css} from "../utils/dom";
+
+const DEFAULT_ZOOM = .6;
 
 export class Canvas extends draw2d.Canvas{
 
@@ -31,20 +33,20 @@ export class Canvas extends draw2d.Canvas{
         this.on("zoom", () => this.onZoomChange());
         /*this.on("figure:add", () => {});*/
 
-        this.setZoom(.6)
+        this.setZoom(DEFAULT_ZOOM)
 
         // Add test figures
         let rect = new draw2d.shape.basic.Rectangle({x: 100, y: 10, stroke: 3, color: "#9e0000", bgColor: "#cd0000"});
-        rect.createPort("hybrid", new CoordinatePortLocator(0, 0));
-        rect.createPort("hybrid", new CoordinatePortLocator(30, 30));
+        rect.createPort("hybrid", new CoordinatePortLocator("", 0, 0));
+        rect.createPort("hybrid", new CoordinatePortLocator("", 30, 30));
         this.add(rect)
-        let led = new ComponentFigure(new Component(LEDElement, '', '', ComponentType.LED));
+        let led = new ComponentFigure(wokwiComponentByClass[LEDElement.name]);
         this.add(led.setX(100).setY(100))
-        let card = new ComponentFigure(new Component(ArduinoUnoElement, '', '', ComponentType.OTHER));
+        let card = new ComponentFigure(wokwiComponentByClass[ArduinoUnoElement.name]);
         this.add(card.setX(200).setY(150))
-        let pixel = new ComponentFigure(new Component(NeoPixelElement, '', '', ComponentType.LED));
+        let pixel = new ComponentFigure(wokwiComponentByClass[NeoPixelElement.name]);
         this.add(pixel.setX(200).setY(50))
-        let dht22 = new ComponentFigure(new Component(Dht22Element, '', '', ComponentType.SENSOR));
+        let dht22 = new ComponentFigure(wokwiComponentByClass[Dht22Element.name]);
         this.add(dht22.setX(250).setY(10))
 
     }
@@ -57,5 +59,9 @@ export class Canvas extends draw2d.Canvas{
             if(selected instanceof ComponentFigure) selected.onSelected();
             this.selected = selected;
         }
+    }
+    public clear(){
+        super.clear()
+        this.setZoom(DEFAULT_ZOOM)
     }
 }

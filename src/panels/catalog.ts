@@ -1,4 +1,4 @@
-import {ComponentElement, components, ComponentType} from "./component";
+import {ComponentElement, ComponentType, wokwiComponents} from "./component";
 
 export class Catalog {
 
@@ -7,7 +7,7 @@ export class Catalog {
     private readonly sorter: HTMLSelectElement | undefined;
     constructor() {
 
-        this.elements = components.map((c) => {
+        this.elements = wokwiComponents.filter((c) => c.type != ComponentType.CARD).map((c) => {
             return new ComponentElement(c);
         });
 

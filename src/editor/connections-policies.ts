@@ -1,6 +1,6 @@
 import draw2d from "draw2d";
 
-class VertexClickConnectionPolicy extends draw2d.policy.connection.ClickConnectionCreatePolicy{
+export class VertexClickConnectionPolicy extends draw2d.policy.connection.ClickConnectionCreatePolicy{
     createConnection(){
         const connection = super.createConnection();
         if(connection.getRouter() instanceof draw2d.layout.connection.VertexRouter){
