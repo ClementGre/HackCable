@@ -1,0 +1,6 @@
+{
+  "wokwiComponents.arduinoUno.description": "Arduino Uno Card",
+  "wokwiComponents.led.description": "Light-Emitting Diode",
+  "wokwiComponents.rgbLed.description": "Light-Emitting Diode with a controllable color",
+  "wokwiComponents.ledBar.description": "Bar composed of 10 Light-Emitting Diode"
+}

@@ -7,7 +7,7 @@ export class Catalog {
     private readonly sorter: HTMLSelectElement | undefined;
     constructor() {
 
-        this.elements = wokwiComponents.filter((c) => c.type != ComponentType.CARD).map((c) => {
+        this.elements = wokwiComponents().filter((c) => c.type != ComponentType.CARD).map((c) => {
             return new ComponentElement(c);
         });
 

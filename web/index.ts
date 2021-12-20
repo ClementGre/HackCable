@@ -3,13 +3,11 @@ import {CompileResult, EmulatorManager, HackCable} from "../src/main";
 
 console.log("Running HackCable web interface")
 
-
-
 const mountingDiv = document.getElementById('hackCable');
 if(!mountingDiv) throw new DOMException("Mounting div not found")
 
-let hackCable = new HackCable(mountingDiv);
-
+const lang = localStorage.getItem('hackCable-webExample-language');
+let hackCable = new HackCable(mountingDiv, lang ? lang : 'fr_fr');
 
 const compileButton = document.getElementById('compile');
 const executeButton = document.getElementById('execute');
@@ -17,7 +15,6 @@ const stopButton = document.getElementById('stop');
 const pauseButton = document.getElementById('pause');
 const codeInput = document.getElementById('code-editor');
 const hexInput = document.getElementById('code-compiled');
-
 
 if(compileButton && executeButton && stopButton && pauseButton && codeInput instanceof HTMLTextAreaElement && hexInput instanceof HTMLTextAreaElement){
 
@@ -74,22 +71,20 @@ if(save && restore){
     });
 }
 
-/*const code = `void setup() {
-  // put your setup code here, to run once:
-    pinMode(1, OUTPUT);
-}
+// language
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  
-  while(true){
-    digitalWrite(1, HIGH);
-    delay(1000);
-    digitalWrite(1, LOW);
-    delay(1000);
-  }
+const languageEn = document.getElementById('language-en');
+const languageFr = document.getElementById('language-fr');
 
-}`*/
+languageEn?.addEventListener("click", () => {
+    localStorage.setItem('hackCable-webExample-language', 'en_us');
+    location.reload()
+});
+languageFr?.addEventListener("click", () => {
+    console.log("Change lang")
+    localStorage.setItem('hackCable-webExample-language', 'fr_fr');
+    location.reload()
+});
 
 
 

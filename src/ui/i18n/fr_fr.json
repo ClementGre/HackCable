@@ -1,0 +1,6 @@
+{
+  "wokwiComponents.arduinoUno.description": "Carte Arduino Uno",
+  "wokwiComponents.led.description": "Diode Électroluminescente",
+  "wokwiComponents.rgbLed.description": "Diode Électroluminescente de couleur contrôllable",
+  "wokwiComponents.ledBar.description": "Barre de 10 Diodes Électroluminescentes"
+}

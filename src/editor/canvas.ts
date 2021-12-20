@@ -49,6 +49,8 @@ export class Canvas extends draw2d.Canvas{
         let dht22 = new ComponentFigure(wokwiComponentByClass[Dht22Element.name]);
         this.add(dht22.setX(250).setY(10))
 
+
+
     }
     private onZoomChange(){
         css(this.overlayContainer, {transform: 'scale(' + 1/this.getZoom() + ')'})

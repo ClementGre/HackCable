@@ -29,6 +29,7 @@ import {
     SmallSoundSensorElement, SSD1306Element,
     TiltSwitchElement
 } from "@wokwi/elements";
+import i18next from "i18next";
 
 export declare type WokwiComponent = SevenSegmentElement | ArduinoUnoElement | LCD1602Element | LEDElement | NeoPixelElement | PushbuttonElement | ResistorElement | MembraneKeypadElement | PotentiometerElement | NeopixelMatrixElement | SSD1306Element | BuzzerElement | RotaryDialerElement | ServoElement | Dht22Element | ArduinoMegaElement | ArduinoNanoElement | Ds1307Element | LEDRingElement | SlideSwitchElement | HCSR04Element | LCD2004Element | AnalogJoystickElement | SlidePotentiometerElement | IRReceiverElement | IRRemoteElement | PIRMotionSensorElement | NTCTemperatureSensorElement | HeartBeatSensorElement | TiltSwitchElement | FlameSensorElement | GasSensorElement | FranzininhoElement | NanoRP2040ConnectElement | SmallSoundSensorElement | BigSoundSensorElement | MPU6050Element | ESP32DevkitV1Element | KY040Element | PhotoresistorSensorElement | RGBLedElement | ILI9341Element | LedBarGraphElement | MicrosdCardElement | DipSwitch8Element
 
@@ -51,36 +52,36 @@ export enum ComponentType {
     CARD
 }
 
-export const wokwiComponents: WokwiComponents = [
+export const wokwiComponents = (): WokwiComponents => [
     {
         id: 0,
         clasz: ArduinoUnoElement,
         name: "Arduino Uno",
-        description: "Carte Arduino Uno",
+        description: i18next.t("wokwiComponents.arduinoUno.description"),
         type: ComponentType.CARD
     },{
         id: 1,
         clasz: LEDElement,
         name: "LED",
-        description: "Diode Électroluminescente",
+        description: i18next.t("wokwiComponents.led.description"),
         type: ComponentType.LED
     },{
         id: 2,
         clasz: RGBLedElement,
         name: "LED RGB",
-        description: "Diode Électroluminescente de couleur contrôllable",
+        description: i18next.t("wokwiComponents.rgbLed.description"),
         type: ComponentType.LED
     },{
         id: 3,
         clasz: LedBarGraphElement,
-        name: "Barre de LEDs",
-        description: "Barre de 10 diodes électroluminescentes",
+        name: "LED Bar",
+        description: i18next.t("wokwiComponents.ledBar.description"),
         type: ComponentType.LED
     },{
         id: 4,
         clasz: NeoPixelElement,
         name: "Pixel",
-        description: "Diode Électroluminescente",
+        description: i18next.t("wokwiComponents.led.description"),
         type: ComponentType.LED
     },{
         id: 5,
@@ -212,7 +213,7 @@ export const wokwiComponents: WokwiComponents = [
 
 export let wokwiComponentById: WokwiComponentById = {};
 export let wokwiComponentByClass: WokwiComponentByClass = {};
-for(let component of wokwiComponents){
+for(let component of wokwiComponents()){
     wokwiComponentById[component.id] = component;
     wokwiComponentByClass[component.clasz.name] = component;
 }
